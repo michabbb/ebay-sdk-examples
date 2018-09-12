@@ -1,8 +1,7 @@
 {
-	"require": {
-		"dts/ebay-sdk-finding": "~0.1",
-		"dts/ebay-sdk-trading": "~0.1",
-		"dts/ebay-sdk-shopping": "~0.1",
-		"dts/ebay-sdk-business-policies-management": "~0.1"
-	}
+    "require": {
+        "dts/ebay-sdk-php": "18.*",
+        "slim/slim": "^3.0",
+        "slim/twig-view": "^2.2"
+    }
 }

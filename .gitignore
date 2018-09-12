@@ -1,4 +1,4 @@
 vendor
 composer.phar
-composer.lock
 configuration.php
+oauth-tokens/server.pem

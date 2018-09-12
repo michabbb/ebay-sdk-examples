@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2014 David T. Sadler
+ * Copyright 2016 David T. Sadler
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,11 +23,8 @@ require __DIR__.'/../vendor/autoload.php';
 /**
  * Include the configuration values.
  *
- * Ensure that you have edited the configuration.php file 
+ * Ensure that you have edited the configuration.php file
  * to include your application keys.
- * 
- * For more information about getting your application keys, see:
- * http://devbay.net/sdk/guides/application-keys/
  */
 $config = require __DIR__.'/../configuration.php';
 
@@ -40,41 +37,25 @@ use \DTS\eBaySDK\BusinessPoliciesManagement\Types;
 
 /**
  * Create the service object.
- *
- * For more information about creating a service object, see:
- * http://devbay.net/sdk/guides/getting-started/#service-object
- *
- * Note that an user token is required when using the Business Policies Management service. 
- *
- * For more information about getting your user tokens, see:
- * http://devbay.net/sdk/guides/application-keys/
  */
-$service = new Services\BusinessPoliciesManagementService(array(
-    'authToken' => $config['production']['userToken'],
-    'globalId' => Constants\GlobalIds::US
-));
+$service = new Services\BusinessPoliciesManagementService([
+    'credentials' => $config['production']['credentials'],
+    'authToken'   => $config['production']['authToken'],
+    'globalId'    => Constants\GlobalIds::US
+]);
 
 /**
  * Create the request object.
- *
- * For more information about creating a request object, see:
- * http://devbay.net/sdk/guides/getting-started/#request-object
  */
 $request = new Types\GetSellerProfilesRequest();
 
 /**
- * Send the request to the getSellerProfiles service operation.
- *
- * For more information about calling a service operation, see:
- * http://devbay.net/sdk/guides/getting-started/#service-operation
+ * Send the request.
  */
 $response = $service->getSellerProfiles($request);
 
 /**
  * Output the result of calling the service operation.
- *
- * For more information about working with the service response object, see:
- * http://devbay.net/sdk/guides/getting-started/#response-object
  */
 if ($response->ack !== 'Success') {
     if (isset($response->errorMessage)) {
@@ -86,12 +67,13 @@ if ($response->ack !== 'Success') {
     /**
      *  Have to take into account that a seller may not have any business policies.
      *  When no policies exist the API does not return the appropriate field.
-     *  Using isset ensures that we don't try and access properties that haven't been set. 
+     *  Using isset ensures that we don't try and access properties that haven't been set.
      */
     if (isset($response->paymentProfileList)) {
         echo "================\nPayment Profiles\n================\n";
         foreach ($response->paymentProfileList->PaymentProfile as $profile) {
-            printf("(%s) %s: %s\n",
+            printf(
+                "(%s) %s: %s\n",
                 $profile->profileId,
                 $profile->profileName,
                 $profile->profileDesc
@@ -102,7 +84,8 @@ if ($response->ack !== 'Success') {
     if (isset($response->returnPolicyProfileList)) {
         echo "======================\nReturn Policy Profiles\n======================\n";
         foreach ($response->returnPolicyProfileList->ReturnPolicyProfile as $profile) {
-            printf("(%s) %s: %s\n",
+            printf(
+                "(%s) %s: %s\n",
                 $profile->profileId,
                 $profile->profileName,
                 $profile->profileDesc
@@ -113,7 +96,8 @@ if ($response->ack !== 'Success') {
     if (isset($response->shippingPolicyProfile)) {
         echo "========================\nShipping Policy Profiles\n========================\n";
         foreach ($response->shippingPolicyProfile->ShippingPolicyProfile as $profile) {
-            printf("(%s) %s: %s\n",
+            printf(
+                "(%s) %s: %s\n",
                 $profile->profileId,
                 $profile->profileName,
                 $profile->profileDesc

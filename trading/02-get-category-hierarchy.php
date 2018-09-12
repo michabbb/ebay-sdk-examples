@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2014 David T. Sadler
+ * Copyright 2016 David T. Sadler
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,9 +25,6 @@ require __DIR__.'/../vendor/autoload.php';
  *
  * Ensure that you have edited the configuration.php file
  * to include your application keys.
- *
- * For more information about getting your application keys, see:
- * http://devbay.net/sdk/guides/application-keys/
  */
 $config = require __DIR__.'/../configuration.php';
 
@@ -37,77 +34,69 @@ $config = require __DIR__.'/../configuration.php';
 use \DTS\eBaySDK\Constants;
 use \DTS\eBaySDK\Trading\Services;
 use \DTS\eBaySDK\Trading\Types;
+use \DTS\eBaySDK\Trading\Enums;
 
 /**
  * Create the service object.
- *
- * For more information about creating a service object, see:
- * http://devbay.net/sdk/guides/getting-started/#service-object
  */
-$service = new Services\TradingService(array(
-    'apiVersion' => $config['tradingApiVersion'],
-    'siteId' => Constants\SiteIds::US
-));
+$service = new Services\TradingService([
+    'credentials' => $config['production']['credentials'],
+    'siteId'      => Constants\SiteIds::US
+]);
 
 /**
  * Create the request object.
- *
- * For more information about creating a request object, see:
- * http://devbay.net/sdk/guides/getting-started/#request-object
  */
 $request = new Types\GetCategoriesRequestType();
 
 /**
  * An user token is required when using the Trading service.
- *
- * For more information about getting your user tokens, see:
- * http://devbay.net/sdk/guides/application-keys/
  */
 $request->RequesterCredentials = new Types\CustomSecurityHeaderType();
-$request->RequesterCredentials->eBayAuthToken = $config['production']['userToken'];
+$request->RequesterCredentials->eBayAuthToken = $config['production']['authToken'];
 
 /**
  * By specifying 'ReturnAll' we are telling the API return the full category hierarchy.
  */
-$request->DetailLevel = array('ReturnAll');
+$request->DetailLevel = ['ReturnAll'];
 
 /**
  * OutputSelector can be used to reduce the amount of data returned by the API.
  * http://developer.ebay.com/DevZone/XML/docs/Reference/ebay/GetCategories.html#Request.OutputSelector
  */
-$request->OutputSelector = array(
+$request->OutputSelector = [
     'CategoryArray.Category.CategoryID',
     'CategoryArray.Category.CategoryParentID',
     'CategoryArray.Category.CategoryLevel',
     'CategoryArray.Category.CategoryName'
-);
+];
 
 /**
- * Send the request to the GetCategories service operation.
- *
- * For more information about calling a service operation, see:
- * http://devbay.net/sdk/guides/getting-started/#service-operation
+ * Send the request.
  */
 $response = $service->getCategories($request);
 
 /**
  * Output the result of calling the service operation.
- *
- * For more information about working with the service response object, see:
- * http://devbay.net/sdk/guides/getting-started/#response-object
  */
-if ($response->Ack !== 'Success') {
-    if (isset($response->Errors)) {
-        foreach ($response->Errors as $error) {
-            printf("Error: %s\n", $error->ShortMessage);
-        }
+if (isset($response->Errors)) {
+    foreach ($response->Errors as $error) {
+        printf(
+            "%s: %s\n%s\n\n",
+            $error->SeverityCode === Enums\SeverityCodeType::C_ERROR ? 'Error' : 'Warning',
+            $error->ShortMessage,
+            $error->LongMessage
+        );
     }
-} else {
+}
+
+if ($response->Ack !== 'Failure') {
     /**
-     * For the US site this will output approximately 18,000 categories.      
+     * For the US site this will output approximately 18,000 categories.
      */
     foreach ($response->CategoryArray->Category as $category) {
-        printf("Level %s : %s (%s) : Parent ID %s\n", 
+        printf(
+            "Level %s : %s (%s) : Parent ID %s\n",
             $category->CategoryLevel,
             $category->CategoryName,
             $category->CategoryID,

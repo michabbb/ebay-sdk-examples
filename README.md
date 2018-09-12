@@ -1,6 +1,6 @@
 # EBAY-SDK-EXAMPLES
 
-This project contains serveral examples of using the [eBay SDK for PHP](https://github.com/davidtsadler/ebay-sdk).
+This project contains several examples of using the [eBay SDK for PHP](https://github.com/davidtsadler/ebay-sdk-php).
 
 ## Requirements
 
@@ -37,7 +37,7 @@ All the examples load configuration settings from a `configuration.php` file loc
    cp configuration.php.example configuration.php
    ```
 
-Edit the resulting `configuration.php` file and specify your eBay application keys. Ensure that you enter values for both the sandbox and production enviroments. A guide is available to [help get your application keys](http://devbay.net/sdk/guides/application-keys.html).
+Edit the resulting `configuration.php` file and specify your eBay application keys. Ensure that you enter values for both the sandbox and production enviroments.
 
 **Be careful not to commit the `configuration.php` file into an SCM repository as you risk exposing your eBay application keys to more people than intended.**
 
@@ -53,7 +53,43 @@ There are several examples for each service that the SDK supports and they are l
 
 1. [Business Policies Management](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/business-policies-management/README.md)
 
-To run an example from the command line use the `php` command followed by the name of the example file. 
+1. [Large Merchange Services](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/large-merchant-services/README.md)
+
+1. [Half Finding](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/half-finding/README.md)
+
+1. [Resolution Case Management](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/resolution-case-management/README.md)
+
+1. [Return Management](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/return-management/README.md)
+
+1. [Misc](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/misc/README.md)
+
+1. [Async](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/async/README.md)
+
+1. [Account](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/account/README.md)
+
+1. [Inventory](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/inventory/README.md)
+
+1. [Product](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/product/README.md)
+
+1. [Product Metadata](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/product_metadata/README.md)
+
+1. [Browse](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/browse/README.md)
+
+1. [Analytics](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/analytics/README.md)
+
+1. [OAuth Tokens](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/oauth-tokens/README.md)
+
+1. [Taxonomy](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/taxonomy/README.md)
+
+1. [Feed](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/feed/README.md)
+
+1. [Metadata](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/metadata/README.md)
+
+1. [Catalog](https://github.com/davidtsadler/ebay-sdk-examples/blob/catalog/metadata/README.md)
+
+1. [Complicance](https://github.com/davidtsadler/ebay-sdk-examples/blob/compliance/metadata/README.md)
+
+To run an example from the command line use the `php` command followed by the name of the example file.
 
 ```
 php finding/01-simple-keywords-search.php
