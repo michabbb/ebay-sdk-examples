@@ -47,7 +47,8 @@ There are several examples for each service that the SDK supports and they are l
 
 1. [Finding](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/finding/README.md)
 
-1. [Trading](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/trading/README.md)
+1. [Trading](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/trading/README.md)  
+           2.1 [SetNotificationPreferences](https://github.com/michabbb/testing-php-ebay-sdk/tree/SetNotificationPreferences)
 
 1. [Shopping](https://github.com/davidtsadler/ebay-sdk-examples/blob/master/shopping/README.md)
 
